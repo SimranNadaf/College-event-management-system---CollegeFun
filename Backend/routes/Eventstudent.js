@@ -35,7 +35,7 @@ router.post("/registerEvent",fetchuser , async(req, res)=>{
       
             
             success = true;
-            res.send({ success, participant });
+            res.send({participant,success});
             
       
         } catch (error) {
@@ -48,7 +48,7 @@ router.post("/registerEvent",fetchuser , async(req, res)=>{
 router.post("/getEvent",fetchuser , async(req, res)=>{
   let success=false
     try{
-      const events = await Event.find({_id:req.body.eventId});
+      const events = await Event.findById(req.body.eventId);
       success=true
       res.send(events);
 
@@ -58,6 +58,22 @@ router.post("/getEvent",fetchuser , async(req, res)=>{
       res.status(500).send("Some internal server error occured");
     }
 });
+
+//Router 4 : Get All Registered Event of student
+router.get("/getRegisteredEventsId",fetchuser , async(req, res)=>{
+  let success=false
+  try{
+    const events = await Participant.find({student:req.student.id});
+    success=true
+    res.send(events);
+
+    
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Some internal server error occured");
+  }
+});
+
 
 
 module.exports = router;

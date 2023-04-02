@@ -8,7 +8,7 @@ const ParticipantSchema = new Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'org',
     },
-    evnet : {
+    event : {
         type : mongoose.Schema.Types.ObjectId,
         ref : 'event',
     },
